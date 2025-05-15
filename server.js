@@ -27,14 +27,10 @@ async function startServer() {
     await runCommand("php", ["artisan", "db:seed", "--force"]);
 
     console.log("Starting Laravel server...");
-    const server = exec(`php -S 0.0.0.0:${port} -t public`, (err, stdout, stderr) => {
-        if (err) {
-            console.error('Error:', err);
-            return;
-        }
-        console.log(stdout);
-        console.error(stderr);
+    const server = spawn("php", ["-S", `0.0.0.0:${port}`, "-t", "public"], {
+        stdio: "inherit"
     });
+
 
     server.stdout.on("data", data => console.log(`stdout: ${data}`));
     server.stderr.on("data", data => console.error(`stderr: ${data}`));
