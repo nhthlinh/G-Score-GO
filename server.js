@@ -1,6 +1,6 @@
 const { spawn } = require("child_process");
 
-const server = spawn("php", ["artisan", "serve", "--host=127.0.0.1", "--port=8000"]);
+const server = spawn("php", ["artisan", "serve", "--host=127.0.0.1", "--port=8080"]);
 
 server.stdout.on("data", (data) => {
   console.log(`stdout: ${data}`);
