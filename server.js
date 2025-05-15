@@ -1,6 +1,4 @@
 const { spawn } = require("child_process");
-const { exec } = require('child_process');
-
 
 function runCommand(command, args) {
   return new Promise((resolve, reject) => {
@@ -15,7 +13,6 @@ function runCommand(command, args) {
   });
 }
 
-// Lắng nghe PORT platform cung cấp
 const port = process.env.PORT || 9000;
 
 async function startServer() {
@@ -27,13 +24,10 @@ async function startServer() {
     await runCommand("php", ["artisan", "db:seed", "--force"]);
 
     console.log("Starting Laravel server...");
-    const server = spawn("php", ["-S", `0.0.0.0:${port}`, "-t", "public"], {
-        stdio: "inherit"
-    });
-
+    await runCommand("php", ["artisan", "serve", "--host=0.0.0.0", `--port=${port}`]);
   } catch (err) {
     console.error("Error during migration or seed:", err);
-    process.exit(1); // thoát nếu migration/seed lỗi
+    process.exit(1);
   }
 }
 
