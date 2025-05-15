@@ -16,7 +16,7 @@ function runCommand(command, args) {
 }
 
 // Lắng nghe PORT platform cung cấp
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 9000;
 
 async function startServer() {
   try {
