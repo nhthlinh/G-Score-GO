@@ -1,6 +1,6 @@
 const { spawn } = require("child_process");
 
-const server = spawn("php", ["-S", "0.0.0.0:8888", "-t", "public"]);
+const server = spawn("php", ["-S", "0.0.0.0:8080", "-t", "public"]);
 
 server.stdout.on("data", data => console.log(`stdout: ${data}`));
 server.stderr.on("data", data => console.error(`stderr: ${data}`));
