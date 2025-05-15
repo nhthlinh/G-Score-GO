@@ -1,1 +1,0 @@
-# G-Score-GO
