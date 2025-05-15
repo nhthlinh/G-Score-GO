@@ -35,3 +35,4 @@ Route::get('/report', [SubjectController::class, 'subjectStatistics']);
 // 4. API để lấy danh sách 10 thí sinh xuất sắc của nhóm A (Toán, Lý, Hóa)
 // http://localhost:8080/golden-owl-test/public/top-students
 Route::get('/top-students', [SubjectController::class, 'getTopStudents']);
+
