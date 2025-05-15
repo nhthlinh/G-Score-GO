@@ -13,6 +13,9 @@ function runCommand(command, args) {
   });
 }
 
+// Lắng nghe PORT platform cung cấp
+const port = process.env.PORT || 8080;
+
 async function startServer() {
   try {
     console.log("Running migrations...");
@@ -22,7 +25,14 @@ async function startServer() {
     await runCommand("php", ["artisan", "db:seed", "--force"]);
 
     console.log("Starting Laravel server...");
-    const server = spawn("php", ["-S", "0.0.0.0:8080", "-t", "public"]);
+    const server = exec(`php -S 0.0.0.0:${port} -t public`, (err, stdout, stderr) => {
+        if (err) {
+            console.error('Error:', err);
+            return;
+        }
+        console.log(stdout);
+        console.error(stderr);
+    });
 
     server.stdout.on("data", data => console.log(`stdout: ${data}`));
     server.stderr.on("data", data => console.error(`stderr: ${data}`));
