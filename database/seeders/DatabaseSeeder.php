@@ -98,7 +98,7 @@ class DatabaseSeeder extends Seeder
         $studentData = [];
         $batchSize = 1000;
         $totalProcessed = 0;
-        $maxRows = 10000; // ✅ Giới hạn 10.000 dòng
+        $maxRows = 100000; // ✅ Giới hạn 10.000 dòng
 
         while (($row = fgetcsv($file)) !== false) {
             if ($firstRow) {
