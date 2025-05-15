@@ -1,15 +1,7 @@
 const { spawn } = require("child_process");
 
-const server = spawn("php", ["artisan", "serve", "--host=127.0.0.1", "--port=8080"]);
+const server = spawn("php", ["-S", "0.0.0.0:8888", "-t", "public"]);
 
-server.stdout.on("data", (data) => {
-  console.log(`stdout: ${data}`);
-});
-
-server.stderr.on("data", (data) => {
-  console.error(`stderr: ${data}`);
-});
-
-server.on("close", (code) => {
-  console.log(`Laravel server exited with code ${code}`);
-});
+server.stdout.on("data", data => console.log(`stdout: ${data}`));
+server.stderr.on("data", data => console.error(`stderr: ${data}`));
+server.on("close", code => console.log(`Laravel server exited with code ${code}`));
