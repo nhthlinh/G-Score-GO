@@ -1,4 +1,6 @@
 const { spawn } = require("child_process");
+const { exec } = require('child_process');
+
 
 function runCommand(command, args) {
   return new Promise((resolve, reject) => {
