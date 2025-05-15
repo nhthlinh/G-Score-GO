@@ -12,17 +12,20 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        DB::table('math_scores')->delete();
-        DB::table('physics_scores')->delete();
-        DB::table('chemistry_scores')->delete();
-        DB::table('biology_scores')->delete();
-        DB::table('history_scores')->delete();
-        DB::table('geography_scores')->delete();
-        DB::table('literature_scores')->delete();
-        DB::table('english_scores')->delete();
-        DB::table('gdcd_scores')->delete();
-        DB::table('students')->delete();
-        DB::table('subjects')->delete();
+
+        // Xóa theo từng đợt nhỏ (nếu cần thiết)
+        MathScore::query()->take(100)->delete(); // test thử
+        PhysicsScore::query()->take(100)->delete();
+        ChemistryScore::query()->take(100)->delete();
+        BiologyScore::query()->take(100)->delete();
+        HistoryScore::query()->take(100)->delete();
+        GeographyScore::query()->take(100)->delete();
+        LiteratureScore::query()->take(100)->delete();
+        EnglishScore::query()->take(100)->delete();
+        GdcdScore::query()->take(100)->delete();
+        Student::query()->take(100)->delete();
+        Subject::query()->take(100)->delete();
+
 
         $this->call([
             SubjectSeeder::class,
