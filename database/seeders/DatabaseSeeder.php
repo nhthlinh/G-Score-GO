@@ -10,23 +10,75 @@ use App\Models\Score;
 
 class DatabaseSeeder extends Seeder
 {
+    // public function run(): void
+    // {
+
+    //     // // Xóa theo từng đợt nhỏ (nếu cần thiết)
+    //     // MathScore::query()->take(100)->delete(); // test thử
+    //     // PhysicsScore::query()->take(100)->delete();
+    //     // ChemistryScore::query()->take(100)->delete();
+    //     // BiologyScore::query()->take(100)->delete();
+    //     // HistoryScore::query()->take(100)->delete();
+    //     // GeographyScore::query()->take(100)->delete();
+    //     // LiteratureScore::query()->take(100)->delete();
+    //     // EnglishScore::query()->take(100)->delete();
+    //     // GdcdScore::query()->take(100)->delete();
+    //     // Student::query()->take(100)->delete();
+    //     // Subject::query()->take(100)->delete();
+
+
+    //     $this->call([
+    //         SubjectSeeder::class,
+    //     ]);
+
+    //     $subjectMap = Subject::pluck('id', 'mon_hoc')->toArray();
+    //     $subjectCodes = ['toan', 'ngu_van', 'ngoai_ngu', 'vat_li', 'hoa_hoc', 'sinh_hoc', 'lich_su', 'dia_li', 'gdcd'];
+
+    //     $filePath = storage_path('app/public/diem_thi_thpt_2024.csv');
+    //     $file = fopen($filePath, 'r');
+
+    //     if (!$file) {
+    //         throw new \Exception("Không thể mở file CSV.");
+    //     }
+
+    //     $firstRow = true;
+    //     $studentBatch = [];
+    //     $studentData = [];
+    //     $batchSize = 1000;
+
+    //     while (($row = fgetcsv($file)) !== false) {
+    //         if ($firstRow) {
+    //             $firstRow = false;
+    //             continue;
+    //         }
+
+    //         // Kiểm tra dữ liệu hợp lệ
+    //         if (!is_array($row) || count($row) < 11) continue;
+
+    //         $studentBatch[] = [
+    //             'sbd' => $row[0],
+    //             'ma_ngoai_ngu' => $row[10],
+    //         ];
+
+    //         $studentData[$row[0]] = $row;
+
+    //         if (count($studentBatch) >= $batchSize) {
+    //             $this->insertBatch($studentBatch, $studentData, $subjectCodes, $subjectMap);
+    //             $studentBatch = [];
+    //             $studentData = [];
+    //         }
+    //     }
+
+    //     // Insert phần còn lại
+    //     if (!empty($studentBatch)) {
+    //         $this->insertBatch($studentBatch, $studentData, $subjectCodes, $subjectMap);
+    //     }
+
+    //     fclose($file);
+    // }
+
     public function run(): void
     {
-
-        // // Xóa theo từng đợt nhỏ (nếu cần thiết)
-        // MathScore::query()->take(100)->delete(); // test thử
-        // PhysicsScore::query()->take(100)->delete();
-        // ChemistryScore::query()->take(100)->delete();
-        // BiologyScore::query()->take(100)->delete();
-        // HistoryScore::query()->take(100)->delete();
-        // GeographyScore::query()->take(100)->delete();
-        // LiteratureScore::query()->take(100)->delete();
-        // EnglishScore::query()->take(100)->delete();
-        // GdcdScore::query()->take(100)->delete();
-        // Student::query()->take(100)->delete();
-        // Subject::query()->take(100)->delete();
-
-
         $this->call([
             SubjectSeeder::class,
         ]);
@@ -45,6 +97,8 @@ class DatabaseSeeder extends Seeder
         $studentBatch = [];
         $studentData = [];
         $batchSize = 1000;
+        $totalProcessed = 0;
+        $maxRows = 10000; // ✅ Giới hạn 10.000 dòng
 
         while (($row = fgetcsv($file)) !== false) {
             if ($firstRow) {
@@ -52,7 +106,6 @@ class DatabaseSeeder extends Seeder
                 continue;
             }
 
-            // Kiểm tra dữ liệu hợp lệ
             if (!is_array($row) || count($row) < 11) continue;
 
             $studentBatch[] = [
@@ -61,21 +114,24 @@ class DatabaseSeeder extends Seeder
             ];
 
             $studentData[$row[0]] = $row;
+            $totalProcessed++;
 
             if (count($studentBatch) >= $batchSize) {
-                $this->insertBatch($studentBatch, $studentData, $subjectCodes, $subjectMap);
+                $this->insertBatch($studentBatch, $studentData);
                 $studentBatch = [];
                 $studentData = [];
             }
+
+            if ($totalProcessed >= $maxRows) break; // ✅ Dừng sau khi đủ 10.000 dòng
         }
 
-        // Insert phần còn lại
         if (!empty($studentBatch)) {
-            $this->insertBatch($studentBatch, $studentData, $subjectCodes, $subjectMap);
+            $this->insertBatch($studentBatch, $studentData);
         }
 
         fclose($file);
     }
+
 
     private function insertBatch($studentBatch, $studentData)
     {
