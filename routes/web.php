@@ -21,18 +21,18 @@ Route::get('/', function () {
 });
 
 // 1. API để kiểm tra điểm của thí sinh theo Số báo danh (SBD)
-// http://localhost:8080/golden-owl-test/public/score/{sbd}
+// http://localhost:8080/score/{sbd}
 Route::get('/score/{sbd}', [StudentController::class, 'checkScore']);
 
 // 2. API để báo cáo phân loại điểm theo các mức điểm
-// http://localhost:8080/golden-owl-test/public/report/{mon_hoc}
+// http://localhost:8080/report/{mon_hoc}
 Route::get('/report/{mon_hoc}', [SubjectController::class, 'generateReport']);
 
 // 3. API để thống kê số lượng học sinh theo mức điểm cho từng môn
-// http://localhost:8080/golden-owl-test/public/subject-statistics
+// http://localhost:8080/report
 Route::get('/report', [SubjectController::class, 'subjectStatistics']);
 
 // 4. API để lấy danh sách 10 thí sinh xuất sắc của nhóm A (Toán, Lý, Hóa)
-// http://localhost:8080/golden-owl-test/public/top-students
+// http://localhost:8080/top-students
 Route::get('/top-students', [SubjectController::class, 'getTopStudents']);
 
