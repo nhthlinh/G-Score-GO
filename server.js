@@ -16,7 +16,7 @@ function runCommand(command, args) {
 async function startServer() {
   try {
     console.log("Running migrations...");
-    await runCommand("php", ["artisan", "migrate", "--force"]);
+    await runCommand("php", ["artisan", "migrate:fresh", "--force"]);
 
     console.log("Seeding database...");
     await runCommand("php", ["artisan", "db:seed", "--force"]);
