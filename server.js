@@ -30,11 +30,6 @@ async function startServer() {
     const server = spawn("php", ["-S", `0.0.0.0:${port}`, "-t", "public"], {
         stdio: "inherit"
     });
-
-
-    server.stdout.on("data", data => console.log(`stdout: ${data}`));
-    server.stderr.on("data", data => console.error(`stderr: ${data}`));
-    server.on("close", code => console.log(`Laravel server exited with code ${code}`));
   } catch (err) {
     console.error("Error during migration or seed:", err);
     process.exit(1); // thoát nếu migration/seed lỗi
