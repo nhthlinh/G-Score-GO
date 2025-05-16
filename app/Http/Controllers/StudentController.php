@@ -12,7 +12,7 @@ use App\Models\HistoryScore;
 use App\Models\GeographyScore;
 use App\Models\LiteratureScore;
 use App\Models\EnglishScore;
-use App\Models\GdcdScore;
+use App\Models\GDCDScore;
 use Illuminate\Support\Facades\DB;
 
 class StudentController extends Controller
@@ -36,7 +36,7 @@ class StudentController extends Controller
             'sinh_hoc' => BiologyScore::where('student_id', $studentId)->value('score') ?? 0,
             'lich_su' => HistoryScore::where('student_id', $studentId)->value('score') ?? 0,
             'dia_li' => GeographyScore::where('student_id', $studentId)->value('score') ?? 0,
-            'gdcd' => GdcdScore::where('student_id', $studentId)->value('score') ?? 0,
+            'gdcd' => GDCDScore::where('student_id', $studentId)->value('score') ?? 0,
         ];
 
         return response()->json([
