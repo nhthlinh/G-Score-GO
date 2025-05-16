@@ -18,6 +18,7 @@ const port = process.env.PORT || 9000;
 async function startServer() {
   try {
     console.log("Running migrations...");
+    //await runCommand("php", ["artisan", "session:table"]);
     await runCommand("php", ["artisan", "migrate:fresh", "--force"]);
 
     console.log("Seeding database...");

@@ -13,7 +13,7 @@ use App\Models\HistoryScore;
 use App\Models\GeographyScore;
 use App\Models\LiteratureScore;
 use App\Models\EnglishScore;
-use App\Models\GdcdScore;
+use App\Models\GDCDScore;
 use Illuminate\Support\Facades\DB;
 
 class SubjectController extends Controller
@@ -31,7 +31,7 @@ class SubjectController extends Controller
             'dia_li' => \App\Models\GeographyScore::class,
             'ngu_van' => \App\Models\LiteratureScore::class,
             'ngoai_ngu' => \App\Models\EnglishScore::class,
-            'gdcd' => \App\Models\GdcdScore::class,
+            'gdcd' => \App\Models\GDCDScore::class,
         ];
 
         if (!isset($modelMap[$mon_hoc])) {
@@ -64,7 +64,7 @@ class SubjectController extends Controller
             'dia-li' => \App\Models\GeographyScore::class,
             'ngu-van' => \App\Models\LiteratureScore::class,
             'ngoai-ngu' => \App\Models\EnglishScore::class,
-            'gdcd' => \App\Models\GdcdScore::class,
+            'gdcd' => \App\Models\GDCDScore::class,
         ];
 
         $result = [];
