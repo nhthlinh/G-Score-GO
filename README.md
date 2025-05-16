@@ -9,19 +9,81 @@
 
 # G-Score-GO
 
-## About Laravel
+Đây là backend của dự án **G-Score**, được phát triển bằng **Laravel**.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Yêu cầu hệ thống
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- PHP >= 8.1
+- Composer
+- MySQL hoặc Railway DB
+- Node.js (nếu dùng Laravel Mix hoặc Vite cho frontend tích hợp)
 
-## How to run 
+---
+
+## Hướng dẫn chạy local
+
+1. **Clone project & cài đặt thư viện**
+
+```bash
+   git clone https://github.com/yourusername/g-score-backend.git
+   cd g-score-backend
+   composer install
+```
+
+2. **Tạo file môi trường**
+
+   ```bash
+   cp .env.example .env
+   ```
+
+3. **Cấu hình `.env` với thông tin database**
+
+   ```env
+   DB_CONNECTION=mysql
+   DB_HOST=127.0.0.1
+   DB_PORT=3306
+   DB_DATABASE=your_database
+   DB_USERNAME=your_username
+   DB_PASSWORD=your_password
+   ```
+
+4. **Tạo key ứng dụng và migrate database**
+
+   ```bash
+   php artisan key:generate
+   php artisan migrate --seed
+   ```
+
+5. **Chạy server**
+
+   ```bash
+   php artisan serve
+   ```
+
+   Mặc định chạy ở: [http://localhost:8000](http://localhost:8000)
+
+---
+
+## Cấu trúc thư mục cơ bản
+
+```
+├── app/
+│   ├── Http/Controllers/         # Controller xử lý request
+│   ├── Models/                   # Model Eloquent
+├── database/
+│   ├── migrations/               # File tạo bảng DB
+│   ├── seeders/                  # File seed dữ liệu
+├── public/                       # Thư mục public (index.php)
+├── routes/
+│   └── api.php                   # Khai báo route API
+├── .env                          # Thông tin cấu hình
+└── server.js                     # Script custom cho Railway
+```
+
+## DEMO 
+```bash
+https://g-score-go-production.up.railway.app/
+```
 
